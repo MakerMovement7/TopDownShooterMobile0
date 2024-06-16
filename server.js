@@ -58,18 +58,18 @@ const startServer = (port) => {
 };
 
 // Serve static files with Gzip compression
-app.use('/', expressStaticGzip('public', {
+app.use('/', expressStaticGzip(path.join(__dirname, '.'), {
   enableBrotli: true,
   orderPreference: ['br', 'gz']
 }));
 
 // Serve the WebGL build files directly
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '.')));
 
 // Serve the WebGL build index file on the root route
 app.get('/', (req, res) => {
   console.log('Serving index.html');
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start the server
